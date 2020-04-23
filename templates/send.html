@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}sendit{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="display-4">send it</h1>
+            <p class="lead">Instantly text yourself photos.</p>
+            <hr class="my-4">
+            <p class="lead">Hello, {{ user['email'] }}</p>
+            <a class="lead text-info" href="{{ url_for('logout') }}">logout</a>
+        </div>
+
+        <form method="POST" action="/" class="form" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+
+            <div class="form-group">
+                <label for="number">Phone Number</label>
+                <input name="number" type="text" class="form-control" id="phone-number" required>
+                {% for error in form.number.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+
+            <div class="form-group">
+                <label for="file">File to send</label>
+                <input name="file" type="file" class="form-control-file" required>
+                {% for error in form.file.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+{% endblock %}
+
